@@ -33,7 +33,9 @@ class User < ApplicationRecord
   end
 
   def feed
-
+    users_ids = following.pluck(:id)
+    users_ids << self.id
+    Tweet.where(user_id: users_ids).order(created_at: :desc)
   end
-    
+
 end
