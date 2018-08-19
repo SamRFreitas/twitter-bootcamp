@@ -16,9 +16,24 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
-  def followers_count
-    self.followers.count
+  def following?(other_user)
+    following.include? other_user
   end
 
+  def followers?(other_user)
+    followers.include? other_user
+  end
 
+  def follow!(other_user)
+    following << other_user
+  end
+
+  def unfollow!(other_user)
+    following.destroy other_user
+  end
+
+  def feed
+
+  end
+    
 end
